@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AK Smarts Books</title>
+<title>AK Smarts Books</title><link rel="canonical" href="https://books.aksmarts.com/">
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B2B24"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Install AK Smarts Books, offline accounting software for GST, VAT, payroll and bank reconciliation.">
 <style>
@@ -34,7 +34,7 @@ footer{margin-top:48px;color:var(--mu);font-size:14px}
 <h1>Your books. Your computer. Nobody else.</h1>
 <p class="tag">Powerful offline accounting that runs fully on your own computer — your books never touch the internet, never sit on anyone’s server, and stay yours alone.</p>
 <p class="lead">Invoices, purchases, bank reconciliation, GST and VAT returns, TDS, payroll and reports. Fast, private and offline.</p>
-<div class="row"><button type="button" class="btn" id="inst" hidden>Install AK Smarts Books on this computer</button><a class="btn" id="open" href="AK-Smarts-Books.html">Open</a></div>
+<div class="row"><button type="button" class="btn" id="inst" hidden>Install AK Smarts Books on this computer</button><a class="btn" id="open" href="/app">Open</a></div>
 <p class="hint" id="hint">Install it like a desktop app: in Chrome or Edge, click the install icon at the right end of the address bar, or open the browser menu and choose <b>Install AK Smarts Books</b>. It then opens in its own window from the Start menu, Dock or desktop and works offline.</p>
 <div class="grid">
 <div class="card"><b>1. Install</b><p>Click Install AK Smarts Books. It gets its own icon and window, like any desktop app, and works without internet.</p></div>
@@ -46,15 +46,15 @@ footer{margin-top:48px;color:var(--mu);font-size:14px}
 <li>Tax rates and due dates update automatically when you are online.</li>
 <li>AK Smarts Books works fully offline. Each licence key works only on the computer it was made for. Changing computers? Ask us for a new key.</li>
 </ol></div>
-<footer>© AK Smarts · <a href="https://aksmarts.com" style="color:inherit">aksmarts.com</a> · <a href="terms.html" style="color:inherit">Terms &amp; Conditions</a> · <a href="privacy.html" style="color:inherit">Privacy Policy</a></footer>
+<footer>© AK Smarts · <a href="https://aksmarts.com" style="color:inherit">aksmarts.com</a> · <a href="/terms" style="color:inherit">Terms &amp; Conditions</a> · <a href="/privacy" style="color:inherit">Privacy Policy</a></footer>
 </main>
 <script>
 var bip=null,ib=document.getElementById('inst'),hint=document.getElementById('hint'),op=document.getElementById('open');
 var standalone=matchMedia('(display-mode: standalone)').matches;
-if('serviceWorker' in navigator&&(location.protocol=='https:'||location.hostname=='localhost'))navigator.serviceWorker.register('sw.js').catch(function(){});
+if('serviceWorker' in navigator&&(location.protocol=='https:'||location.hostname=='localhost'))navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){});
 addEventListener('beforeinstallprompt',function(e){e.preventDefault();bip=e;ib.hidden=false;op.className='btn ghost';hint.textContent='AK Smarts Books opens in its own window from the Start menu, Dock or desktop and works offline.'});
 ib.onclick=function(){if(!bip)return;bip.prompt();bip.userChoice.then(function(r){if(r.outcome=='accepted'){ib.hidden=true;hint.textContent='Installed. Open AK Smarts Books from the Start menu, Dock or desktop icon.'}bip=null})};
 addEventListener('appinstalled',function(){ib.hidden=true;op.className='btn';hint.textContent='Installed. Open AK Smarts Books from the Start menu, Dock or desktop icon.'});
-if(standalone)location.replace('AK-Smarts-Books.html?source=app');
+if(standalone)location.replace('/app?source=app');
 </script>
 </body></html>

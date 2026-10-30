@@ -1,82 +1,32 @@
-=====================================================
-  AK Smarts Books  —  upload + set up books.aksmarts.com
-=====================================================
+AK Smarts Books - update for books.aksmarts.com
+================================================
+What changed
+  * Web addresses no longer show ".html":
+        https://books.aksmarts.com/          landing page
+        https://books.aksmarts.com/app       the app
+        https://books.aksmarts.com/terms     Terms
+        https://books.aksmarts.com/privacy   Privacy
+  * The app file is now app.html (GitHub Pages serves it as /app).
+  * Offline support (sw.js) now loads pages from the internet first, so
+    updates always appear, and only uses the saved copy when offline.
+    This fixes the "Open does nothing after installing" problem caused
+    by an old saved copy.
+  * Installed app now starts at /app.
 
-Your product is now named  AK Smarts Books  (the old "FinDesk"
-name is gone everywhere). The web address will be:
+How to upload (GitHub repo -> Add file -> Upload files)
+  1. Delete the old app file first if it is still there:
+     AK-Smarts-FinDesk.html (and any old AK-Smarts-Books.html is fine,
+     the new one is only a small redirect to /app).
+  2. Drag in ALL files from this zip (including CNAME and .nojekyll),
+     commit.
+  3. Wait 1-2 minutes, then open https://books.aksmarts.com
 
-      https://books.aksmarts.com
+If you already installed the old version
+  Open the installed app once while online and close it. The new offline
+  file replaces the old one automatically. If it still looks old:
+  Chrome -> address bar -> padlock -> Site settings -> Clear data, then
+  open https://books.aksmarts.com again. (Your books are stored in the
+  browser: first use Back up in the app, then clear.)
 
------------------------------------------------------
-WHAT IS IN THE ZIP  (aksmarts-books-site.zip)
------------------------------------------------------
-Everything your website needs, already renamed:
-  index.html .............. landing page (Install / Open)
-  AK-Smarts-Books.html .... the app itself (code scrambled)
-  manifest.webmanifest .... makes it installable as a desktop app
-  sw.js ................... offline support
-  icon-192 / 512 / etc. ... the new "B" app icons
-  terms.html, privacy.html  legal pages
-  oauth.html .............. (only used if you enable Gmail/Drive)
-  CNAME ................... sets the domain to books.aksmarts.com
-  .nojekyll ............... required by GitHub Pages
-
------------------------------------------------------
-STEP 1 — Upload to GitHub (replace the old files)
------------------------------------------------------
-1. Unzip aksmarts-books-site.zip on your computer.
-2. Go to your repo:  github.com/akhotapp-ai/Smarts-FinDesk-AK-
-   (the repo name doesn't matter — you can keep it or rename it)
-3. IMPORTANT — remove the old app file first so it doesn't linger:
-   - Open  AK-Smarts-FinDesk.html  in the repo, click the trash/Delete
-     icon, Commit. (Leave the rest; the upload below overwrites them.)
-4. Click  "Add file"  ->  "Upload files".
-5. Drag in ALL the unzipped files (including CNAME and .nojekyll).
-6. Click  "Commit changes".
-
-NOTE: The CNAME file in the zip already contains books.aksmarts.com,
-so once it's uploaded, GitHub Pages picks up the domain automatically.
-If you created an old CNAME earlier with "findesk.aksmarts.com",
-this upload replaces it.
-
------------------------------------------------------
-STEP 2 — GoDaddy DNS  (change the subdomain to "books")
------------------------------------------------------
-1. godaddy.com -> My Products -> aksmarts.com -> DNS (Manage DNS).
-2. If you already added a "findesk" CNAME earlier, EDIT it (or delete
-   it and Add New Record). Set it to EXACTLY:
-
-      Type:   CNAME
-      Name:   books
-      Value:  akhotapp-ai.github.io
-      TTL:    1 Hour  (or default)
-
-3. Save.  (Value has NO https:// and NO slash at the end.)
-
------------------------------------------------------
-STEP 3 — GitHub Pages setting
------------------------------------------------------
-Repo -> Settings -> Pages -> Custom domain -> type:
-      books.aksmarts.com
-Save. Tick "Enforce HTTPS" once it becomes available.
-
------------------------------------------------------
-STEP 4 — Wait, then open
------------------------------------------------------
-After 10-30 minutes:
-      https://books.aksmarts.com
-You should see the AK Smarts Books landing page. Done!
-
------------------------------------------------------
-Gmail / Google Drive (only if you use those features later)
------------------------------------------------------
-Add this origin in your Google Cloud Console
-("Authorised JavaScript origins"):
-      https://books.aksmarts.com
-Tell me when you reach that step and I'll walk you through it.
-
-=====================================================
-Note: your private Licence Manager tool still carries the
-old name internally — that's just for you, not customers.
-Tell me if you'd like it renamed too.
-=====================================================
+Note: oauth.html is only the small pop-up page Google Drive sign-in
+returns to. It keeps its name because Google is set to that address.
