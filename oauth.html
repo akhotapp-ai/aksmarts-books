@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-zz1sQz7l5XtNzBS7c4Gwatk1+IkjS3j5dRZwxsDy4Ig='; style-src 'unsafe-inline'">
+<meta name="referrer" content="no-referrer"><title>Connecting Google Drive</title>
+<style>:root{color-scheme:light dark}body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.5 system-ui,sans-serif;background:#f2f6f4;color:#12201b}@media (prefers-color-scheme:dark){body{background:#0a1411;color:#e8f0ec}}p{padding:16px;text-align:center}</style></head>
+<body><p id="m">Connecting Google Drive…</p><script>
+(function(){var p=new URLSearchParams(location.hash.slice(1)),q=new URLSearchParams(location.search),o={t:p.get('access_token')||'',e:Date.now()+((+p.get('expires_in'))||3600)*1000,s:p.get('state')||q.get('state')||'',err:p.get('error')||q.get('error')||''};
+try{history.replaceState(null,'',location.pathname)}catch(e){}
+var sent=false;try{if(window.opener&&!window.opener.closed){window.opener.postMessage({fdg:o},location.origin);sent=true}}catch(e){}
+try{localStorage.setItem('aks-findesk-gtok',JSON.stringify(o));setTimeout(function(){try{localStorage.removeItem('aks-findesk-gtok')}catch(e){}},15000)}catch(e){}
+document.getElementById('m').textContent=o.err?'Google Drive was not connected. You can close this window.':'Google Drive is connected. You can close this window.';
+setTimeout(function(){window.close()},600)})();
+</script></body></html>
