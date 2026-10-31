@@ -80,7 +80,7 @@ Note: oauth.html is only the small pop-up page Google Drive sign-in
 returns to. It keeps its name because Google is set to that address.
 
 LICENCE CHECK (new)
-  app.html now asks https://licence.aksmarts.com once a day whether the computer is the licensed one.
+  app.html now asks https://aksmarts-licence.akhotapp.workers.dev once a day whether the computer is the licensed one.
   Set up the licence server first (see SETUP-licence-server.txt in aksmarts-licence-server.zip),
   then upload this site. Without the server the app still works (7-day offline grace).
   The privacy page, terms and landing page were updated to describe this.
