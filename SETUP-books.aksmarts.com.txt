@@ -1,5 +1,13 @@
 AK Smarts Books - update 2026-10-31
 ===================================
+Update 2026-11-01
+  * books.aksmarts.com now opens straight to Sign up / Sign in. Nothing opens without it.
+    Sign-up now creates the admin username and password; every later visit asks to sign in.
+    Existing users without a sign-in are asked to create one once.
+  * Top right shows who is signed in (name and role). Yes/No popup before any delete.
+  * No up/down arrows on number boxes. Repeating entries can have many lines.
+  * Profit and loss and Balance sheet: Compare month by month, quarter, or year by year.
+
 UPLOAD ORDER: put the new licence server worker.js online first, then this website.
 
 New in this update
