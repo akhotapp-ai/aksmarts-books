@@ -1,3 +1,28 @@
+AK Smarts Books - update 2026-10-31
+===================================
+New in this update
+  * Sign-up page: new users see a "Start your 30-day free trial" form
+    (name, email, phone, location, then business name). Saved only on the
+    computer. Existing users with books are not asked.
+  * Dashboard redesigned. Bigger, easier-to-read text everywhere, plus an
+    "Aa" button in the top bar for Large / Extra large text.
+  * Chart of accounts: tick or untick each built-in ledger and main group
+    ("In use"). Unticked ones are hidden from lists. Every group and ledger
+    has an Edit button (rename, move to another group).
+  * Statutory compliance is now a drop-down menu: GST, GST refund, TDS and
+    TCS, EPF/ESI/PT, Payroll dues, Compliance calendar.
+  * Move up / move down buttons on journal lines and invoice item lines.
+  * Backup and restore: back up to this computer/USB, Google Drive or
+    OneDrive, and restore from any of them. Admin AND staff can restore.
+  * The "Google Drive is not set up" panel is removed. Data menu now has
+    "Backup and restore" and "Auto-save to a file".
+  * Companies limit: the app reports how many companies are in use to the
+    licence server, so you see it in the admin page. Creating more than the
+    licence allows is blocked.
+
+Upload order: licence server update first (aksmarts-licence-server.zip,
+paste the new worker.js), then this website.
+
 AK Smarts Books - update for books.aksmarts.com
 ================================================
 What changed
@@ -30,3 +55,9 @@ If you already installed the old version
 
 Note: oauth.html is only the small pop-up page Google Drive sign-in
 returns to. It keeps its name because Google is set to that address.
+
+LICENCE CHECK (new)
+  app.html now asks https://licence.aksmarts.com once a day whether the computer is the licensed one.
+  Set up the licence server first (see SETUP-licence-server.txt in aksmarts-licence-server.zip),
+  then upload this site. Without the server the app still works (7-day offline grace).
+  The privacy page, terms and landing page were updated to describe this.

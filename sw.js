@@ -1,5 +1,5 @@
 /* AK Smarts Books offline support: keeps the app files on this computer so it opens without internet. Books are never sent anywhere by this file. */
-const V='aksbooks-2026.10.30-r2';
+const V='aksbooks-2026.10.30-r3';
 const CORE=['./','app','terms','privacy','manifest.webmanifest','icon-192.png','icon-512.png','icon-maskable-512.png','favicon-32.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(CORE.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>(x.startsWith('findesk-')||x.startsWith('aksbooks-'))&&x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
