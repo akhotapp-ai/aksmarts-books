@@ -1,14 +1,21 @@
 AK Smarts Books - update 2026-10-31
 ===================================
+UPLOAD ORDER: put the new licence server worker.js online first, then this website.
+
 New in this update
   * Sign-up page: new users see a "Start your 30-day free trial" form
-    (name, email, phone, location, then business name). Saved only on the
-    computer. Existing users with books are not asked.
+    (name, email, phone, location, then business name). The details are
+    sent once to the AK Smarts licence server so you are alerted (admin page
+    popup, optional email to info@aksmarts.com). Books are never sent.
+    If the computer is offline, it is sent when it next comes online.
+    Existing users with books are not asked.
+  * Support contact everywhere: info@aksmarts.com, WhatsApp / call
+    +91 63639 44409. Setup, Licence has "Send ID on WhatsApp" and
+    "Send ID by email" buttons that fill in the installation ID for you.
   * Dashboard redesigned. Bigger, easier-to-read text everywhere, plus an
     "Aa" button in the top bar for Large / Extra large text.
-  * Chart of accounts: tick or untick each built-in ledger and main group
-    ("In use"). Unticked ones are hidden from lists. Every group and ledger
-    has an Edit button (rename, move to another group).
+  * Chart of accounts: built-in ledgers start unticked (hidden); tick the
+    ones you use. Main group names cannot be edited.
   * Statutory compliance is now a drop-down menu: GST, GST refund, TDS and
     TCS, EPF/ESI/PT, Payroll dues, Compliance calendar.
   * Move up / move down buttons on journal lines and invoice item lines.
@@ -19,6 +26,22 @@ New in this update
   * Companies limit: the app reports how many companies are in use to the
     licence server, so you see it in the admin page. Creating more than the
     licence allows is blocked.
+
+  * Shared books for a team (Data -> Auto-save to a file -> "Shared with your team"):
+    keep one file in a shared Google Drive / OneDrive folder. First person:
+    "Choose where to save" there. Others: "Open books from a file", same file.
+    Only one person edits at a time. Everyone else sees "View only: <name> is
+    editing" and the latest saved copy, refreshed about every minute. Buttons:
+    "Let others edit", "Start editing", "Edit now (take over)". An editor who is
+    away for 20 minutes is released automatically.
+
+  * Chart of accounts: built-in ledgers now start unticked (hidden); tick the
+    ones you need. Ledgers with entries are always in use. Groups open on click.
+    Main (built-in) groups can no longer be renamed.
+  * Repeating entries now have a Type: expense, income (e.g. rent received)
+    or journal.
+  * Data -> Move to other software: Tally-style XML, journal CSV/Excel, chart
+    of accounts, contacts and trial balance, or everything in one zip.
 
 Upload order: licence server update first (aksmarts-licence-server.zip,
 paste the new worker.js), then this website.
