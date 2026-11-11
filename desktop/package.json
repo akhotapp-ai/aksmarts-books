@@ -1,0 +1,67 @@
+{
+  "name": "aksmarts-pdf-desktop",
+  "productName": "AK Smarts PDF",
+  "version": "1.2.0",
+  "description": "AK Smarts PDF desktop app. Opens PDFs directly with a double-click.",
+  "main": "main.js",
+  "author": "AK Smarts PDF",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis",
+    "dist:mac": "electron-builder --mac dmg",
+    "dist:linux": "electron-builder --linux AppImage"
+  },
+  "devDependencies": {
+    "electron": "^44.9.3",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "in.aksmarts.pdf",
+    "productName": "AK Smarts PDF",
+    "files": [
+      "main.js",
+      "preload.js",
+      "config.json",
+      "offline.html",
+      "build/icon.png"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "fileAssociations": [
+      {
+        "ext": "pdf",
+        "name": "AKSmartsPDF.Document",
+        "description": "PDF Document",
+        "mimeType": "application/pdf",
+        "role": "Editor",
+        "icon": "pdf-file"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "publisherName": "AK Smarts"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "AK Smarts PDF",
+      "include": "build/installer.nsh",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "artifactName": "AK-Smarts-PDF-Setup-${version}.${ext}"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "category": "Office",
+      "icon": "build/icon.png"
+    }
+  }
+}

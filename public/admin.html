@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · AK Smarts PDF</title>
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" href="/icons/icon-192.png">
+<link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+<header class="top">
+  <div class="in">
+    <a class="brand" href="/admin"><img src="/icons/icon-128.png" alt="" width="34" height="34"><div><b id="appName">AK Smarts PDF</b><small>Admin console</small></div></a>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button role="tab" data-tab="visitors">Visitors</button>
+      <button role="tab" data-tab="users">Users</button>
+      <button role="tab" data-tab="settings">Trial &amp; licence rules</button>
+      <button role="tab" data-tab="keys">Licence keys</button>
+      <button role="tab" data-tab="signs">Signatures</button>
+      <button role="tab" data-tab="audit">Activity</button>
+      <button role="tab" data-tab="security">Security</button>
+    </nav>
+    <div class="me"><span id="meName"></span><a href="/app" class="lnk">Open app</a></div>
+  </div>
+</header>
+
+<main id="main">
+  <div id="denied" class="panel" hidden>
+    <h2>Admins only</h2>
+    <p>Log in to the app with an administrator account, then come back to this page.</p>
+    <p><a class="btn" href="/app?signin=1">Go to log in</a></p>
+  </div>
+
+  <!-- overview -->
+  <section id="tab-overview" class="tab" hidden>
+    <div class="panel warnbox" id="secWarn" hidden><div><h3>Protect your admin account</h3><p class="muted">Turn on 2-step login so nobody can get in with your password alone.</p></div><button class="btn" data-go="security">Turn on 2-step login</button></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="panel freebox" id="freeBox">
+      <div><h3>Free period for everyone</h3><p class="muted" id="freeSummary"></p></div>
+      <div class="row"><button class="btn" id="freeToggle"></button><button class="btn2" id="freeExtend">Change end date</button><button class="btn2" data-go="visitors">See visitors</button><button class="btn2" data-go="settings">Free access rules</button></div>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Free trials right now</h3>
+        <p class="muted" id="trialSummary"></p>
+        <div class="row">
+          <button class="btn danger" id="cancelAll">Cancel all active trials…</button>
+          <button class="btn2" id="toggleTrials"></button>
+        </div>
+        <p class="muted small">Cancelling takes effect within 5 minutes in every open app, and immediately on next launch. Paid licences are not affected.</p>
+      </div>
+      <div class="panel">
+        <h3>Quick actions</h3>
+        <div class="row">
+          <button class="btn2" data-go="keys">Create licence keys</button>
+          <button class="btn2" data-go="users">Find a user</button>
+          <button class="btn2" data-go="settings">Change trial length</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- visitors -->
+  <section id="tab-visitors" class="tab" hidden>
+    <div class="tiles" id="vtiles"></div>
+    <div class="panel">
+      <h3>Daily active computers, last 30 days</h3>
+      <p class="muted small"><span class="key k1"></span>Active that day <span class="key k2"></span>New that day</p>
+      <div class="chart" id="vchart" role="img" aria-label="Daily active computers"></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h3>Most used tools (30 days)</h3><div id="vtools"></div></div>
+      <div class="panel"><h3>What is counted</h3><p class="muted small">Each browser or installed app gets an anonymous ID the first time it opens the app. We count visits, PDFs opened and tools used. File names and contents are never sent. One person on two computers counts as two.</p></div>
+    </div>
+    <div class="panel flush"><div class="tblwrap"><table class="tbl" id="vtbl">
+      <thead><tr><th>Computer</th><th>Account</th><th>First seen</th><th>Last seen</th><th>Visits</th><th>PDFs opened</th><th>Status</th><th></th></tr></thead>
+      <tbody></tbody></table></div></div>
+  </section>
+
+  <!-- users -->
+  <section id="tab-users" class="tab" hidden>
+    <div class="bar"><input id="uq" class="inp" type="search" placeholder="Search by name or email" aria-label="Search users"><span class="muted" id="ucount"></span></div>
+    <div class="panel flush"><div class="tblwrap"><table class="tbl" id="utbl">
+      <thead><tr><th>User</th><th>Plan</th><th>Status</th><th>Devices</th><th>Joined</th><th>Last login</th><th></th></tr></thead>
+      <tbody></tbody></table></div></div>
+  </section>
+
+  <!-- settings -->
+  <section id="tab-settings" class="tab" hidden>
+    <form id="sform" class="panel" novalidate>
+      <h3>Free period for everyone (promotion)</h3>
+      <p class="muted small">While it runs, anyone can use the app without an account, and accounts without a licence get the full app too. Their free trial starts when the free period ends.</p>
+      <div class="fgrid">
+        <label class="sw"><input type="checkbox" name="guest_mode"><span>Free period is on</span></label>
+        <label>Free until (last free day) <small>empty = until you switch it off. Only you see this date; users just see “Sign in”.</small><input class="inp" name="free_until" type="date"></label>
+        <label>Free days per computer <small>0 = the whole free period</small><input class="inp" name="guest_days" type="number" min="0" max="3650"></label>
+        <label>Without an account people can use
+          <select class="inp" name="guest_features"><option value="full">Every tool (full app)</option><option value="reader">Reading and printing only</option></select></label>
+      </div>
+      <h3>Free trial (after creating an account)</h3>
+      <div class="fgrid">
+        <label class="sw"><input type="checkbox" name="trial_enabled"><span>Give new accounts a free trial</span></label>
+        <label>Trial length (days)<input class="inp" name="trial_days" type="number" min="1" max="3650"></label>
+        <label>Maximum number of free trials <small>0 = no limit</small><input class="inp" name="trial_max_users" type="number" min="0"></label>
+        <label class="sw"><input type="checkbox" name="trial_one_per_device"><span>Only one free trial per computer</span></label>
+      </div>
+      <h3>When a trial or licence ends</h3>
+      <div class="fgrid">
+        <label>The app becomes
+          <select class="inp" name="expired_mode"><option value="reader">A free PDF reader (open, read and print)</option><option value="block">Locked until they buy</option></select></label>
+        <label>Works offline for (days) <small>before it must check the licence again</small><input class="inp" name="offline_days" type="number" min="0" max="60"></label>
+      </div>
+      <h3>Accounts and devices</h3>
+      <div class="fgrid">
+        <label class="sw"><input type="checkbox" name="signup_open"><span>Allow new sign-ups</span></label>
+        <label>Devices per account <small>0 = no limit</small><input class="inp" name="max_devices" type="number" min="0" max="100"></label>
+      </div>
+      <h3>Logging in</h3>
+      <div class="fgrid">
+        <p class="muted">People sign up and log in with an email or mobile number and a password. 2-step login uses a free authenticator app (Google or Microsoft Authenticator); each person turns it on under <i>Your account</i>. No text messages (SMS) are sent.</p>
+        <p class="muted" id="otpState"></p>
+      </div>
+      <h3>Selling</h3>
+      <div class="fgrid">
+        <label>App name<input class="inp" name="app_name" type="text" maxlength="60"></label>
+        <label>Price shown to users<input class="inp" name="price_text" type="text" maxlength="60"></label>
+        <label class="sw"><input type="checkbox" name="show_price"><span>Show the price to users <small>Off = the price is hidden everywhere (app, account, legal pages)</small></span></label>
+        <label>“Buy” link <small>e.g. your Razorpay or Stripe payment page (https://…)</small><input class="inp" name="buy_url" type="url" placeholder="https://rzp.io/l/your-link"></label>
+        <label>Support email <small>shown for forgotten passwords</small><input class="inp" name="support_email" type="email"></label>
+      </div>
+      <h3>Legal details <small>shown in the Privacy, Terms, Refund and Contact pages</small></h3>
+      <div class="fgrid">
+        <label>Business name<input class="inp" name="legal_owner" type="text" maxlength="100"></label>
+        <label>Contact &amp; grievance email<input class="inp" name="legal_email" type="email"></label>
+        <label>Business address <small>full postal address</small><textarea class="inp" name="legal_address" rows="3" maxlength="400"></textarea></label>
+        <label>Courts for disputes <small>city and state, e.g. Bengaluru, Karnataka</small><input class="inp" name="legal_jurisdiction" type="text" maxlength="100"></label>
+        <label>Grievance Officer name <small>empty = business name</small><input class="inp" name="legal_grievance" type="text" maxlength="100"></label>
+        <label>Refund window (days)<input class="inp" name="legal_refund_days" type="number" min="0" max="90"></label>
+        <p class="muted">View the pages: <a href="/privacy" target="_blank">Privacy</a> · <a href="/terms" target="_blank">Terms</a> · <a href="/licence" target="_blank">Licence</a> · <a href="/refund-policy" target="_blank">Refunds</a> · <a href="/cookies" target="_blank">Cookies</a> · <a href="/disclaimer" target="_blank">Disclaimer</a> · <a href="/contact" target="_blank">Contact</a></p>
+      </div>
+      <h3>Ads (Google AdSense)</h3>
+      <div class="fgrid">
+        <label class="sw"><input type="checkbox" name="ads_on"><span>Show ads on the home and tool pages <small>Never in the reader or editor, and never for paid users</small></span></label>
+        <p class="muted" id="adsState"></p>
+      </div>
+      <div class="row end"><span class="msg" id="smsg"></span><button class="btn" type="submit">Save rules</button></div>
+    </form>
+  </section>
+
+  <!-- keys -->
+  <section id="tab-keys" class="tab" hidden>
+    <form id="kform" class="panel" novalidate>
+      <h3>Create licence keys</h3>
+      <p class="muted small">Give a key to a customer after they pay. They enter it in the app under their account (or on the “trial ended” screen).</p>
+      <div class="fgrid four">
+        <label>How many keys<input class="inp" name="count" type="number" min="1" max="500" value="1"></label>
+        <label>Licence length
+          <select class="inp" name="days"><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365" selected>1 year</option><option value="730">2 years</option><option value="0">Lifetime</option></select></label>
+        <label>People per key<input class="inp" name="max_uses" type="number" min="1" value="1"></label>
+        <label>Note <small>customer, invoice no.</small><input class="inp" name="note" type="text" maxlength="200"></label>
+      </div>
+      <div class="row end"><button class="btn" type="submit">Create</button></div>
+      <div id="newKeys" class="newkeys" hidden></div>
+    </form>
+    <div class="panel flush"><div class="tblwrap"><table class="tbl" id="ktbl">
+      <thead><tr><th>Key</th><th>Length</th><th>Used</th><th>Used by</th><th>Note</th><th>Created</th><th></th></tr></thead>
+      <tbody></tbody></table></div></div>
+  </section>
+
+  <!-- signature log -->
+  <section id="tab-signs" class="tab" hidden>
+    <p class="muted">Every e-Sign is recorded here with the document fingerprint (SHA-256), so you can prove later who signed which file. DSC signatures are recorded when the app is online.</p>
+    <div class="panel flush"><div class="tblwrap"><table class="tbl" id="stbl">
+      <thead><tr><th>When</th><th>Type</th><th>Signer</th><th>Account</th><th>File</th><th>Fingerprint</th><th>IP</th></tr></thead>
+      <tbody></tbody></table></div></div>
+  </section>
+
+  <!-- audit -->
+  <section id="tab-audit" class="tab" hidden>
+    <div class="panel flush"><div class="tblwrap"><table class="tbl" id="atbl">
+      <thead><tr><th>When</th><th>Who</th><th>What</th><th>Target</th><th>Details</th></tr></thead>
+      <tbody></tbody></table></div></div>
+  </section>
+  <!-- security -->
+  <section id="tab-security" class="tab" hidden>
+    <div class="panel" id="tfaPanel">
+      <h3>2-step login for your account</h3>
+      <div id="tfaOff">
+        <p class="muted">After your password, you also type a 6-digit code from an app on your phone. Someone who learns your password still can’t get in.</p>
+        <button class="btn" id="tfaStart">Set up 2-step login</button>
+        <div id="tfaSetup" class="tfa-setup" hidden>
+          <ol class="steps">
+            <li>Install <b>Google Authenticator</b> or <b>Microsoft Authenticator</b> on your phone (free).</li>
+            <li>In the app, tap <b>+</b>, then <b>Scan a QR code</b>, and scan this:</li>
+          </ol>
+          <div class="qrrow"><img id="tfaQr" alt="QR code for your authenticator app" width="200" height="200"><div><p class="muted small">Can’t scan? Choose “Enter a setup key” and type:</p><p class="mono" id="tfaSecret"></p></div></div>
+          <ol class="steps" start="3"><li>Type the 6-digit code the app shows now:</li></ol>
+          <form id="tfaForm" class="row" novalidate><input class="inp sm" id="tfaCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456" aria-label="6-digit code"><button class="btn" type="submit">Turn on</button><span class="msg" id="tfaMsg"></span></form>
+        </div>
+      </div>
+      <div id="tfaOn" hidden>
+        <p><span class="pill ok">On</span> Your account asks for a code from your phone at every login. <span class="muted" id="tfaBackupLeft"></span></p>
+        <div class="row"><button class="btn2" id="tfaNewCodes">New backup codes</button><button class="btn2 danger" id="tfaOffBtn">Turn off 2-step login</button></div>
+      </div>
+      <div id="tfaCodes" class="newkeys" hidden>
+        <b>Your backup codes.</b> <span class="muted small">Each one works once if you lose your phone. Save them somewhere safe (print them or keep them in a password manager). They won’t be shown again.</span>
+        <pre id="tfaCodeList" class="mono"></pre>
+        <button class="btn2" id="tfaCopy">Copy codes</button>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Email alerts</h3>
+        <p class="muted small" id="mailState"></p>
+        <form id="alertForm" class="fgrid" novalidate>
+          <label class="sw"><input type="checkbox" name="alert_admin"><span>Email me when someone logs in as admin, a new admin is made, or 2-step login is turned off</span></label>
+          <label>Send alerts to <small>empty = the first admin’s email</small><input class="inp" name="alert_email" type="email"></label>
+        </form>
+        <div class="row end"><span class="msg" id="alertMsg"></span><button class="btn2" id="alertTest">Send test email</button><button class="btn" id="alertSave">Save</button></div>
+      </div>
+      <div class="panel">
+        <h3>Administrators</h3>
+        <div class="tblwrap"><table class="tbl small" id="admTbl"><thead><tr><th>Admin</th><th>2-step login</th><th>Last login</th></tr></thead><tbody></tbody></table></div>
+        <p class="muted small">Lost your phone and your backup codes? On Render, add the setting <span class="mono">RESET_2FA</span> = your email (or run <span class="mono">npm run reset-2fa -- you@example.com</span> on your own server), or ask another admin (Users → Manage → Reset 2-step login).</p>
+      </div>
+    </div>
+    <div class="panel flush"><h3 class="flushh">Recent admin logins</h3><div class="tblwrap"><table class="tbl" id="loginTbl"><thead><tr><th>When</th><th>Admin</th><th>From / how</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+</main>
+
+<dialog id="udlg" class="wide">
+  <div class="dhead"><div><h2 id="uName"></h2><span class="muted" id="uEmail"></span></div><button class="x" id="uClose" aria-label="Close">×</button></div>
+  <div id="uPlan" class="plan"></div>
+  <div class="acts">
+    <div class="act"><b>Trial</b>
+      <div class="row"><input class="inp sm" id="uTrialDays" type="number" min="1" value="7" aria-label="Days"><button class="btn2" data-act="extend_trial">Give / extend trial by days</button><button class="btn2 danger" data-act="cancel_trial">Cancel trial</button></div></div>
+    <div class="act"><b>Paid licence</b>
+      <div class="row"><select class="inp sm" id="uLicDays" aria-label="Length"><option value="30">1 month</option><option value="90">3 months</option><option value="365" selected>1 year</option><option value="0">Lifetime</option></select><button class="btn2" data-act="grant">Give licence</button><button class="btn2 danger" data-act="revoke">Revoke all licences</button></div></div>
+    <div class="act"><b>Account</b>
+      <div class="row"><button class="btn2" data-act="reset_devices">Sign out all devices</button><button class="btn2" data-act="reset_password">Set new password…</button><button class="btn2" data-act="disable" id="uDisable">Disable</button><button class="btn2" data-act="enable" id="uEnable">Enable</button><button class="btn2" data-act="make_admin" id="uMkAdmin">Make admin</button><button class="btn2" data-act="reset_2fa" id="uReset2fa">Reset 2-step login</button><button class="btn2" data-act="remove_admin" id="uRmAdmin">Remove admin</button><button class="btn2 danger" data-act="delete">Delete account</button></div></div>
+  </div>
+  <div class="msg" id="umsg"></div>
+  <h3>Licence history</h3>
+  <div class="tblwrap"><table class="tbl small" id="uLics"><thead><tr><th>Type</th><th>Status</th><th>From</th><th>Until</th><th>Note / key</th></tr></thead><tbody></tbody></table></div>
+  <h3>Signed in on</h3>
+  <div class="tblwrap"><table class="tbl small" id="uSess"><thead><tr><th>Device</th><th>Browser</th><th>Since</th><th>Last seen</th></tr></thead><tbody></tbody></table></div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="/admin.js"></script>
+</body>
+</html>
